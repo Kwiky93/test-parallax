@@ -5,6 +5,7 @@ export default defineNuxtConfig({
   plugins: [{ src: "~/plugins/vuekonva.client" }],
   modules: ["@vueuse/nuxt", "@pinia/nuxt"],
   app: {
+    baseURL: "/test-parallax/",
     pageTransition: { name: "page", mode: "out-in" },
   },
   pinia: {
