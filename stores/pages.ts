@@ -68,6 +68,9 @@ export const usePages = defineStore("pages", {
 
   actions: {},
   getters: {
+    getPages(state) {
+      return state.pages;
+    },
     getPicsByLink: (state) => {
       return (link: string) =>
         [].concat(...state.pages).find((page) => page.link == "/" + link);

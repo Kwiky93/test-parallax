@@ -3,7 +3,7 @@
     <div class="background" :style="parallaxBackground">BEST DESIGN</div>
 
     <div class="testFlex" :style="transform">
-      <div class="testFlexCol" v-for="col in arrayLinksFlex">
+      <div class="testFlexCol" v-for="col in storePages.getPages">
         <div v-for="item in col">
           <CardMenu :data="item" :width="calcWidth"></CardMenu>
         </div>
@@ -13,6 +13,14 @@
 </template>
 
 <script setup>
+definePageMeta({
+  pageTransition: {
+    name: "menu",
+    mode: "out-in", // default
+  },
+});
+// provide(startPosition, getOffsets());
+const storePages = usePages();
 const menu = ref(null);
 
 const parallax = reactive(useParallax(menu));
@@ -44,72 +52,9 @@ const transform = computed(() => ({
 const calcWidth = computed(() => {
   return (window.innerWidth - 100 - 4 * 50) / 5;
 });
-
-const arrayLinksFlex = [
-  [
-    {
-      color: "green",
-      pic: "/pics/3.jpg",
-      link: "/test3",
-    },
-    {
-      color: "green",
-      pic: "/pics/4.jpg",
-      link: "/test4",
-    },
-    {
-      color: "green",
-      pic: "/pics/5.jpg",
-      link: "/test5",
-    },
-  ],
-  [
-    {
-      color: "red",
-      pic: "/pics/1.jpg",
-      link: "/test",
-    },
-    {
-      color: "purple",
-      pic: "/pics/7.jpg",
-      link: "/test7",
-    },
-    {
-      color: "white",
-      pic: "/pics/8.jpg",
-      link: "/test8",
-    },
-  ],
-
-  [
-    {
-      color: "yellow",
-      pic: "/pics/6.jpg",
-      link: "/test6",
-    },
-    {
-      color: "blue",
-      pic: "/pics/2.jpeg",
-      link: "/test2",
-    },
-
-    {
-      color: "red",
-      pic: "/pics/9.png",
-      link: "/test9",
-    },
-  ],
-  [
-    {
-      color: "red",
-      pic: "/pics/10.jpg",
-      link: "/test10",
-    },
-  ],
-];
 </script>
 
-<style>
+<style lang="scss">
 .menu {
   position: absolute;
   top: 0;
@@ -128,7 +73,7 @@ const arrayLinksFlex = [
   font-weight: bold;
   font-family: sans-serif;
   text-transform: uppercase;
-  transition: ".3s ease-out all";
+  // transition: ".3s ease-out all";
 }
 
 .testFlex {
@@ -145,5 +90,53 @@ const arrayLinksFlex = [
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.menu-enter-active,
+.menu-leave-active {
+  transition: all 2s;
+  .background {
+    // color: blue;
+    transition: all 2s;
+  }
+  .testFlex {
+    transition: all 2s;
+    .card-active {
+      transition: all 2s;
+      .img {
+        transition: all 2s;
+      }
+    }
+  }
+
+  :not(.card-active) {
+    transition: all 2s;
+  }
+}
+// .main-enter-from {
+//   opacity: 0;
+// }
+.menu-leave-to {
+  // opacity: 0;
+  .background {
+    opacity: 0;
+  }
+  .card:not(.card-active) {
+    opacity: 0;
+  }
+  .testFlex {
+    transform: translate(0, 0) !important;
+    scale: 1 !important;
+    margin: 0;
+    .card-active {
+    }
+    img {
+      // position: absolute;
+      // left: 0;
+      // top: 0;
+    }
+  }
+
+  /* filter: blur(1rem); */
 }
 </style>

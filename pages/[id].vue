@@ -6,6 +6,13 @@
 </template>
 
 <script setup>
+definePageMeta({
+  pageTransition: {
+    name: "card",
+    mode: "out-in", // default
+  },
+});
+
 const route = useRoute();
 const storePages = usePages();
 const url = storePages.getPicsByLink(route.params.id);
@@ -22,5 +29,17 @@ const url = storePages.getPicsByLink(route.params.id);
   top: 0;
   overflow: hidden;
   left: 0;
+}
+.card-enter-active,
+.card-leave-active {
+  transition: all 1s;
+}
+.card-enter-from {
+  scale: 0.2;
+}
+.card-leave-to {
+  opacity: 0;
+
+  /* filter: blur(1rem); */
 }
 </style>
