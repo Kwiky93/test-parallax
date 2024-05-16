@@ -1,1 +1,0 @@
-import{u as r,o,c,t,n as e,q as n}from"./CYOQva3E.js";import{u}from"./POxzFXBk.js";const d={__name:"[id]",setup(i){const s=r(),a=u().getPicsByLink(s.params.id);return(l,m)=>(o(),c("div",{ref:"page",class:"page",style:n({backgroundImage:`url(${e(a).pic})`})}," PAge "+t(e(s).params.id)+" "+t(e(a)),5))}};export{d as default};
